@@ -24,9 +24,11 @@ Modificator::Modificator(const unsigned card_id) : Card(card_id)
     //TODO set multiplicator from db
 }
 
+
 unsigned Modificator::get_multiplicator()const
 {
     return multiplicator;
 }
+
 
 #endif // MODIFICATOR_H

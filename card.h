@@ -28,12 +28,14 @@ class Card
         unsigned id;
 };
 
+
 Card::Card(const unsigned card_id)
 {
     //TODO search for id in base, check if correct
     id = card_id;
     //TODO copy of data from base
 }
+
 
 Card& Card::operator =(const Card& other)
 {
@@ -62,6 +64,7 @@ Alliance Card::get_alliance() const
 {
     return alliance;
 }
+
 
 unsigned Card::get_id() const
 {
