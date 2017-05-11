@@ -9,7 +9,8 @@
 class Card
 {
     public:
-        explicit Card() = default;
+        Card() = delete;
+        explicit Card(const unsigned card_id);
         explicit Card(const Card& other) = default;
         virtual ~Card() = default;
 
@@ -27,6 +28,12 @@ class Card
         unsigned id;
 };
 
+Card::Card(const unsigned card_id)
+{
+    //TODO search for id in base, check if correct
+    id = card_id;
+    //TODO copy of data from base
+}
 
 Card& Card::operator =(const Card& other)
 {
