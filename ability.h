@@ -3,7 +3,7 @@
 
 enum class Ability
 {
-    ability_1
+    ability_1 // Mb not enum class but class w/ functions;
     //TODO
 };
 
