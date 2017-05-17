@@ -6,7 +6,7 @@
 class Maniac : public Card
 {
     public:
-        Maniac() = delete;
+        Maniac() = default;
         explicit Maniac(const unsigned card_id);
         explicit Maniac(const Maniac& other) = default;
         virtual ~Maniac() = default;

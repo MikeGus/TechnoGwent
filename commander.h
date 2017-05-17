@@ -7,7 +7,7 @@
 class Commander : public Card
 {
     public:
-        Commander() = delete;
+        Commander() = default;
         explicit Commander(const unsigned card_id);
         explicit Commander(const Commander& other) = default;
         virtual ~Commander() = default;

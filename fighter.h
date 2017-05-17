@@ -7,7 +7,7 @@
 class Fighter : public Card
 {
     public:
-        Fighter() = delete;
+        Fighter() = default;
         explicit Fighter(const unsigned card_id);
         explicit Fighter(const Fighter& other) = default;
         virtual ~Fighter() = default;

@@ -9,7 +9,7 @@
 class Card
 {
     public:
-        Card() = delete;
+        Card() = default;
         explicit Card(const unsigned card_id);
         explicit Card(const Card& other) = default;
         virtual ~Card() = default;
