@@ -11,7 +11,7 @@ class Card
     public:
         Card() = default;
         explicit Card(const unsigned card_id);
-        explicit Card(const Card& other) = default;
+        Card(const Card& other) = default;
         virtual ~Card() = default;
 
         Card& operator=(const Card &other);
