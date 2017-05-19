@@ -8,10 +8,7 @@
 struct Side // no need for class
 {
     public:
-        std::vector<std::shared_ptr<Card>> melee_row;
-        std::vector<std::shared_ptr<Card>> markman_row;
-        std::vector<std::shared_ptr<Card>> vehicle_row;
-        std::vector<std::shared_ptr<Card>> officer_row;
+        std::vector<std::vector<std::shared_ptr<Card>>> rows;
 };
 
 #endif // SIDE_H

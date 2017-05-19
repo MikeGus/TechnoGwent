@@ -10,9 +10,8 @@
 //};
 
 struct Field;
-
-
 typedef std::function<void(Field&)> Ability;
+
 
 
 #endif // ABILITY_H

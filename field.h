@@ -3,6 +3,8 @@
 
 #include "side.h"
 #include "hand.h"
+#include <ctime>
+#include <random>
 
 struct Field
 {
@@ -10,10 +12,16 @@ struct Field
         Side allied_forces;
         Side enemy_forces;
 
-        Commander allied_commander;
         Commander enemy_commander;
 
         Hand hand;
+
+        std::vector<std::shared_ptr<Card>> drop;
+        std::vector<std::shared_ptr<Card>> deck;
+
+        bool from_hand_to_side(unsigned pos, int row);
+        void rand_from_deck();
 };
+
 
 #endif // FIELD_H
