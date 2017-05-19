@@ -9,6 +9,8 @@
 struct Field
 {
     public:
+        Field();
+
         Side allied_forces;
         Side enemy_forces;
 
@@ -19,6 +21,7 @@ struct Field
         std::vector<std::shared_ptr<Card>> drop;
         std::vector<std::shared_ptr<Card>> deck;
 
+        //methods
         bool from_hand_to_side(unsigned pos, int row);
         void rand_from_deck();
 };
