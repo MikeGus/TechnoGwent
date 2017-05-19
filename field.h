@@ -18,12 +18,13 @@ struct Field
 
         Hand hand;
 
+        // need special class pool
         std::vector<std::shared_ptr<Card>> drop;
-        std::vector<std::shared_ptr<Card>> deck;
+        std::vector<std::shared_ptr<Card>> pool;
 
         //methods
         bool from_hand_to_side(unsigned pos, int row);
-        void rand_from_deck();
+        void rand_from_pool();
 };
 
 

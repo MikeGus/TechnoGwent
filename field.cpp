@@ -45,9 +45,9 @@ bool Field::from_hand_to_side(unsigned pos, int row)
 }
 
 
-void Field::rand_from_deck()
+void Field::rand_from_pool()
 {
     srand(time(NULL));
-    unsigned pos = rand() % deck.size();
-    hand.add(deck[pos]);
+    unsigned pos = rand() % pool.size();
+    hand.add(pool[pos]);
 }
