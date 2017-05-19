@@ -12,7 +12,7 @@
 class Ability
 {
     public:
-        void execute();
+        void execute(Field& field);
 
     private:
         Ability_impl realization;
