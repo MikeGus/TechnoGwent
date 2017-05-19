@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "proxy.h"
 #include "server.h"
 
@@ -10,7 +11,7 @@ void Proxy::init(int , int )
     if(serv)
         serv->addClient(this);
     else
-        throw "No server found"; // TODO: add exception
+        throw std::logic_error("No server found");
 }
 
 void Proxy::roundStart(int)

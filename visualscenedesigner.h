@@ -7,13 +7,13 @@
 class VisualSceneDesigner
 {
 public:
-    VisualSceneDesigner(VisualSceneBuilder *_builder); // Передавая указатель на дочерник классы, мы можем строить любой уровень
+    VisualSceneDesigner(VisualSceneBuilder *_builder); // Building any kind of level simply by specifying different subclasses
     virtual ~VisualSceneDesigner();
 
     virtual GameWindow *getWindow(int width, int height);
 
 protected:
-    VisualSceneBuilder *builder; // На случай, если мы захотим переписать дезигнер в дочерних классах
+    VisualSceneBuilder *builder; // In case we wanna change designer in subclasses
 };
 
 #endif // VISUALSCENEDESIGNER_H
