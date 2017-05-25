@@ -1,7 +1,7 @@
 #include "commander.h"
 
 
-Commander::Commander(const unsigned id): _used(false) , _ability(id), _id(id) {}
+Commander::Commander(const unsigned id): _ability(id), _id(id), _used(false) {}
 
 
 bool Commander::used() const
