@@ -22,7 +22,9 @@ class Card
     public:
         Card() = default;
         explicit Card(const unsigned card_id);
-        explicit Card(const Card& other) = default;
+        /*explicit*/ Card(const Card& other) = default; // Не думаю, что нам его нужно делать как explicit, на самом деле
+                                                        // Либо тогда добавлять move-семантику, чтобы из функций можно было
+                                                        // Возвращать копию
         virtual ~Card() = default;
 
         Card& operator=(const Card &other);
