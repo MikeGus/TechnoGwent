@@ -18,17 +18,5 @@ class Modificator : public Card
 };
 
 
-Modificator::Modificator(const unsigned card_id) : Card(card_id)
-{
-    //if Card constructor fails, exception will be thrown, else:
-    //TODO set multiplicator from db
-}
-
-
-unsigned Modificator::get_multiplicator()const
-{
-    return multiplicator;
-}
-
 
 #endif // MODIFICATOR_H

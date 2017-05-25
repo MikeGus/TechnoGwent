@@ -25,35 +25,4 @@ class Fighter : public Card
 };
 
 
-Fighter::Fighter(const unsigned card_id) : Card(card_id)
-{
-    //if Card constructor fails, exception will be thrown, else:
-    //TODO set multiplicator from db
-}
-
-
-unsigned Fighter::get_strength() const
-{
-    return strength;
-}
-
-
-bool Fighter::is_golden() const
-{
-    return golden;
-}
-
-
-bool Fighter::is_rat() const
-{
-    return rat;
-}
-
-
-Effect Fighter::get_effect() const
-{
-    return effect;
-}
-
-
 #endif // FIGHTER_H

@@ -21,23 +21,7 @@ class Commander : public Card
 };
 
 
-Commander::Commander(const unsigned card_id) : Card(card_id)
-{
-    //if Card constructor fails, exception will be thrown, else:
-    //TODO set multiplicator from db
-}
 
-
-Ability Commander::get_ability() const
-{
-    return ability;
-}
-
-
-bool Commander::ability_used() const
-{
-    return used;
-}
 
 
 #endif // COMMANDER_H

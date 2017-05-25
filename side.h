@@ -4,14 +4,16 @@
 #include <vector>
 #include <memory>
 #include "card.h"
+#include "fighter.h"
+#include "modificator.h"
 
 struct Side // no need for class
 {
     public:
-        std::vector<std::shared_ptr<Card>> melee_row;
-        std::vector<std::shared_ptr<Card>> markman_row;
-        std::vector<std::shared_ptr<Card>> vehicle_row;
-        std::vector<std::shared_ptr<Card>> officer_row;
+        std::vector<std::vector<std::shared_ptr<Card>>> rows;
+
+        unsigned get_row_strength(unsigned row);
+        unsigned calculate_fighters_strength(std::vector<std::shared_ptr<Card>>& row);
 };
 
 #endif // SIDE_H

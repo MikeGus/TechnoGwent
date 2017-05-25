@@ -3,10 +3,11 @@
 
 enum class Row
 {
+    any,
     melee,
     marksman,
     vehicle,
-    officer
+    officer,
 };
 
 #endif // ROW_H

@@ -3,6 +3,7 @@
 
 enum class Role
 {
+    pass,
     modificator,
     fighter,
     maniac,

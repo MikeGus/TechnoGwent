@@ -20,23 +20,5 @@ class Maniac : public Card
 };
 
 
-Maniac::Maniac(const unsigned card_id) : Card(card_id)
-{
-    //if Card constructor fails, exception will be thrown, else:
-    //TODO set multiplicator from db
-}
-
-
-unsigned Maniac::get_strength() const
-{
-    return strength;
-}
-
-
-unsigned Maniac::get_minimal_strength() const
-{
-    return minimal_strength;
-}
-
 
 #endif // MANIAC_H

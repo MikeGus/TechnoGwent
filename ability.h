@@ -1,7 +1,7 @@
 #ifndef ABILITY_H
 #define ABILITY_H
 
-#include <functional>
+#include "ability_inplementation.h"
 
 //enum class Ability
 //{
@@ -9,10 +9,16 @@
 //    //TODO
 //};
 
-struct Field;
+class Ability
+{
+    public:
+        void execute(Field& field);
+
+    private:
+        Ability_impl realization;
+};
 
 
-typedef std::function<void(Field&)> Ability;
 
 
 #endif // ABILITY_H

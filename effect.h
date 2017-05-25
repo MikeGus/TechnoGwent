@@ -3,6 +3,7 @@
 
 enum class Effect
 {
+    none,
     band,
     tough
 };

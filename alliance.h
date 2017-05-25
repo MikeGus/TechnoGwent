@@ -3,6 +3,7 @@
 
 enum class Alliance
 {
+    none,
     cops,
     mafia,
     jakuza
