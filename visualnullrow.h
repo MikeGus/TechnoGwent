@@ -10,7 +10,7 @@ public:
     explicit VisualNullRow(const VisualNullRow &other) = delete;// TODO: maybe make a copy constructor for prototyping
     ~VisualNullRow() = default;
 
-    void draw() override;
+    void draw() override; // Empty drawer: not drawing anythin, the object is null
 };
 
 #endif // VISUALNULLROW_H

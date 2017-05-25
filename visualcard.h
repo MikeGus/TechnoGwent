@@ -10,7 +10,7 @@ class VisualCard : public VisualComponent
 public:
     explicit VisualCard(QWidget *parent = 0, const std::shared_ptr<Card> &_card = std::shared_ptr<Card>(nullptr),
              QString _description = "Default descr", QString textureFile = nullptr);
-    explicit VisualCard(const VisualCard &other) = default;// TODO: copy constructor for prototyping
+    explicit VisualCard(const VisualCard &other);
     ~VisualCard() = default;
 
     void draw();

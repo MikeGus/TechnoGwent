@@ -1,8 +1,14 @@
 #include <QPainter>
 #include "visualcard.h"
 
-VisualCard::VisualCard(QWidget *parent, const std::shared_ptr<Card> &_card, QString _description, QString textureFile): VisualComponent(parent),
+VisualCard::VisualCard(QWidget *parent, const std::shared_ptr<Card> &_card,
+                       QString _description, QString textureFile): VisualComponent(parent),
     card(_card), description(_description), texture( textureFile == "" ? nullptr : new QPixmap(textureFile))
+{
+}
+
+VisualCard::VisualCard(const VisualCard &other): VisualComponent(other), card(other.card), description(other.description),
+    texture(other.texture ? new QPixmap(*other.texture) : nullptr)
 {
 }
 

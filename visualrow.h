@@ -8,7 +8,7 @@ class VisualRow : public VisualComponent
 {
 public:
     explicit VisualRow(QWidget *parent = 0, enum Row row = Row::melee);
-    explicit VisualRow(const VisualRow &other) = delete;// TODO: maybe make a copy constructor for prototyping
+    explicit VisualRow(const VisualRow &other);
     ~VisualRow() = default;
 
     void draw() override;

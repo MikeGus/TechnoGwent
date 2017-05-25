@@ -19,11 +19,12 @@ GameWindow *VisualSceneDesigner::getWindow(int width, int height)
 
     GameWindow *win = new GameWindow;
     win->resize(width, height);
+    VisualNullRow *battleFieldContainer = builder->buildNullRow(win);
     QHBoxLayout *hor = new QHBoxLayout;
     QVBoxLayout *ver = new QVBoxLayout;
 
 
-    for(int j = 0; j < 4; j++)
+    for(int j = 0; j < 3; j++)
     {
         VisualRow *row = builder->buildRow();
         QHBoxLayout *rowHor = new QHBoxLayout;
@@ -41,7 +42,7 @@ GameWindow *VisualSceneDesigner::getWindow(int width, int height)
     VisualNullRow *null = builder->buildNullRow();
     ver->addWidget(null);
 
-    for(int j = 0; j < 4; j++)
+    for(int j = 0; j < 3; j++)
     {
         VisualRow *row = builder->buildRow();
         QHBoxLayout *rowHor = new QHBoxLayout;
@@ -56,11 +57,12 @@ GameWindow *VisualSceneDesigner::getWindow(int width, int height)
         ver->addWidget(row);
     }
 
-    hor->addLayout(ver);
+    battleFieldContainer->setLayout(ver);
+    hor->addWidget(battleFieldContainer);
     win->setLayout(hor);
 
     VisualMessage *msg = new VisualMessage(win, "Some text");
-    msg->resize(win->width(), win->height()/4);
+    msg->resize(win->width(), win->height()/6);
     msg->move(0, win->height()/2 - win->height()/8);
 
     return win;

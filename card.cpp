@@ -1,6 +1,5 @@
 #include "card.h"
 
-
 Card::Card(const unsigned card_id)
 {
     id = card_id;

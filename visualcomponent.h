@@ -9,7 +9,7 @@ class VisualComponent : public QWidget
 
 public:
     explicit VisualComponent(QWidget *parent = 0);
-    explicit VisualComponent(const VisualComponent &other) = default;// TODO: copy constructor for prototyping
+    explicit VisualComponent(const VisualComponent &other);
     virtual ~VisualComponent();
 
     virtual void draw();
