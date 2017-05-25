@@ -12,21 +12,12 @@ namespace pt = boost::property_tree;
 class Card
 {
     public:
-<<<<<<< HEAD
 //        conctructor w/ data from db
         explicit Card() = default;
         explicit Card(const unsigned id);
         Card(const Card& other) = default;
         Card(Card& other) = default;
         Card& operator =(const Card& other);
-
-=======
-        Card() = default;
-        explicit Card(const unsigned card_id);
-        /*explicit*/ Card(const Card& other) = default; // Не думаю, что нам его нужно делать как explicit, на самом деле
-                                                        // Либо тогда добавлять move-семантику, чтобы из функций можно было
-                                                        // Возвращать копию
->>>>>>> 4026af8d9d5bd45dac1fd64a2de95be8ce04a6ca
         virtual ~Card() = default;
 
         Alliance alliance() const;
