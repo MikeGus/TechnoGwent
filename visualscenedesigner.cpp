@@ -31,7 +31,7 @@ GameWindow *VisualSceneDesigner::getWindow(int width, int height)
 
         for(int i = 0; i < 6; i++)
         {
-            VisualCard *vc = new VisualCard;
+            VisualCard *vc = builder->buildVisualCard();
             rowHor->addWidget(vc);
             row->setLayout(rowHor);
         }
@@ -49,13 +49,19 @@ GameWindow *VisualSceneDesigner::getWindow(int width, int height)
 
         for(int i = 0; i < 6; i++)
         {
-            VisualCard *vc = new VisualCard;
+            VisualCard *vc = builder->buildVisualCard();
             rowHor->addWidget(vc);
             row->setLayout(rowHor);
         }
 
         ver->addWidget(row);
     }
+
+    VisualHand *vhand = builder->buildVisualHand();
+
+    for(int i = 0; i < 10; i++)
+        vhand->insertCard(std::shared_ptr<VisualCard>(builder->buildVisualCard()), i);
+    ver->addWidget(vhand);
 
     battleFieldContainer->setLayout(ver);
     hor->addWidget(battleFieldContainer);

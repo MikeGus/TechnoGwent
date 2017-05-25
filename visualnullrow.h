@@ -6,7 +6,7 @@
 class VisualNullRow: public VisualRow
 {
 public:
-    explicit VisualNullRow(QWidget *parent = 0);
+    explicit VisualNullRow(QWidget *parent = nullptr);
     explicit VisualNullRow(const VisualNullRow &other) = delete;// TODO: maybe make a copy constructor for prototyping
     ~VisualNullRow() = default;
 

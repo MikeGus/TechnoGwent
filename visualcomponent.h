@@ -8,7 +8,7 @@ class VisualComponent : public QWidget
     Q_OBJECT
 
 public:
-    explicit VisualComponent(QWidget *parent = 0);
+    explicit VisualComponent(QWidget *parent = nullptr);
     explicit VisualComponent(const VisualComponent &other);
     virtual ~VisualComponent();
 

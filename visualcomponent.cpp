@@ -24,8 +24,8 @@ void VisualComponent::draw()
 
 void VisualComponent::show()
 {
-    QWidget::show();
     draw();
+    QWidget::show();
 }
 
 void VisualComponent::drawBuffer()

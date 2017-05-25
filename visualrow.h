@@ -7,7 +7,7 @@
 class VisualRow : public VisualComponent
 {
 public:
-    explicit VisualRow(QWidget *parent = 0, enum Row row = Row::melee);
+    explicit VisualRow(QWidget *parent = nullptr, enum Row row = Row::melee);
     explicit VisualRow(const VisualRow &other);
     ~VisualRow() = default;
 
