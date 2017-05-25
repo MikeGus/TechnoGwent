@@ -9,6 +9,8 @@ unsigned Field::strength(int row) const
     unsigned str = 0;
     unsigned count = 0;
 
+    unsigned golden = 0;
+
     unsigned modificator = 1;
     bool zero_modificator = false;
 
@@ -20,8 +22,13 @@ unsigned Field::strength(int row) const
 
     for (const Card& card : rows[row]) {
         if (card.role() == Role::fighter || card.role() == Role::maniac) {
-            str += card.value();
-            ++count;
+            if (card.golden()) {
+                golden += card.value();
+            }
+            else {
+                str += card.value();
+                ++count;
+            }
         }
         else if (card.role() == Role::modificator) {
             if (card.value() == 0) {
@@ -40,6 +47,7 @@ unsigned Field::strength(int row) const
     }
 
     result *= modificator;
+    result += golden;
 
     return result;
 }
@@ -97,4 +105,25 @@ bool Field::fromHandToRow(unsigned hand_position, int row)
     hand.erase(hand.begin() + hand_position);
 
     return true;
+}
+
+bool Field::fromPoolToHand()
+{
+    if (pool.emptyAvailible()) {
+        return false;
+    }
+    Card card(pool.getCard());
+    hand.push_back(card);
+    return true;
+}
+
+bool Field::fromEnemyToRow(unsigned id, int row)
+{
+    Card card(id);
+    if (row >= row_number || row == 0) {
+        return false;
+    }
+    if (static_cast<int>(card.role()) != abs(row)) {
+        return false;
+    }
 }

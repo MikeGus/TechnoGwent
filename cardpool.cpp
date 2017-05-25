@@ -8,8 +8,8 @@ CardPool::CardPool(size_t _size, int _mixKey)
 
 Card CardPool::getCard()
 {
-    Card c(available.back());
-    available.pop_back();
+    Card c(availible.back());
+    availible.pop_back();
     return c;
 }
 
@@ -25,5 +25,15 @@ void CardPool::mixCards(int )
 void CardPool::generate(size_t size)
 {
     for(size_t i = 0; i < size; i++)
-        available.push_back(Card(i));
+        availible.push_back(Card(i));
+}
+
+bool CardPool::emptyAvailible() const
+{
+    return availible.empty();
+}
+
+bool CardPool::emptyDead() const
+{
+    return dead.empty();
 }

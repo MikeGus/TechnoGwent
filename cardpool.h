@@ -12,9 +12,11 @@ public:
 
     Card getCard();
     void returnDead(const Card &deadCard);
+    bool emptyAvailible() const;
+    bool emptyDead() const;
 
 private:
-    QVector<Card> available;
+    QVector<Card> availible;
     QVector<Card> dead;
 
     void mixCards(int mixKey);

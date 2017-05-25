@@ -25,6 +25,9 @@ class Field
         unsigned enemyStrength() const;
 
         bool fromHandToRow(unsigned hand_position, int row);
+        bool fromPoolToHand();
+
+        bool fromEnemyToRow(unsigned id, int row);
 
 };
 
