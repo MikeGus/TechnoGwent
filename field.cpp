@@ -1,53 +1,59 @@
 #include "field.h"
-#include "fighter.h"
 
-bool Field::from_hand_to_side(unsigned pos, int row)
+unsigned Field::strength(unsigned row) const
 {
-    std::shared_ptr<Card> card(hand.get(pos));
-    Card* raw = card.get();
+    if (row >= row_number) {
+        throw(std::logic_error("Wrong row number!"));
+    }
 
-    if (raw->get_role() == Role::fighter) {
-        Fighter* raw_figher = (Fighter*) raw;
-        if (raw_figher->is_rat()) {
-            if (row >= 0) {
-                hand.add(card);
-                return false;
-            }
-            else if (row < 0) {
-                row = - row;
-                if (row == (int) raw->get_role()) {
-                    enemy_forces.rows[row].push_back(card);
-                    return true;
-                }
-            }
+    unsigned str = 0;
+    unsigned count = 0;
 
+    unsigned modificator = 1;
+    bool zero_modificator = false;
+
+//    check every card in a row
+    for (const Card& card : rows[row]) {
+        if (card.role() == Role::fighter || card.role() == Role::maniac) {
+            str += card.value();
+            ++count;
         }
-        else {
-            if (row <= 0) {
-                hand.add(card);
-                return false;
+        else if (card.role() == Role::modificator) {
+            if (card.value() == 0) {
+                zero_modificator = true;
             }
             else {
-                if (row == (int) raw->get_role()) {
-                    enemy_forces.rows[row].push_back(card);
-                    return true;
-                }
+                modificator *= card.value();
             }
         }
     }
 
-    if (row == (int) raw->get_row()) {
-        allied_forces.rows[row].push_back(card);
-        return true;
+    unsigned result = str;
+
+    if (zero_modificator) {
+        result = count;
     }
 
-    return false;
+    result *= modificator;
+
+    return result;
+}
+
+unsigned Field::allyStrength() const
+{
+    unsigned str = 0;
+    for (unsigned i = 0; i < row_number / 2; ++i) {
+        str += strength(i);
+    }
+    return str;
 }
 
 
-void Field::rand_from_pool()
+unsigned Field::enemyStrength() const
 {
-    srand(time(NULL));
-    unsigned pos = rand() % pool.size();
-    hand.add(pool[pos]);
+    unsigned str = 0;
+    for (unsigned i = row_number / 2; i < row_number; ++i) {
+        str += strength(i);
+    }
+    return str;
 }

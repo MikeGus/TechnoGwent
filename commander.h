@@ -2,22 +2,27 @@
 #define COMMANDER_H
 
 #include "card.h"
-#include "ability.h"
+#include "core/ability.h"
 
-class Commander : public Card
+
+class Commander
 {
     public:
-        Commander() = default;
-        explicit Commander(const unsigned card_id);
+        explicit Commander() = default;
+        explicit Commander(const unsigned id);
+
         explicit Commander(const Commander& other) = default;
         virtual ~Commander() = default;
 
-        Ability get_ability() const;
-        bool ability_used() const;
+        bool used() const;
+        unsigned id() const;
 
-    protected:
-        Ability ability;
-        bool used;
+        void use_ability(Field& field);
+
+    private:
+        Ability _ability;
+        unsigned _id = 0;
+        bool _used = false;
 };
 
 

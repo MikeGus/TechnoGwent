@@ -1,30 +1,28 @@
 #ifndef FIELD_H
 #define FIELD_H
 
-#include "side.h"
-#include "hand.h"
-#include <ctime>
-#include <random>
+#include "commander.h"
+#include "cardpool.h"
 
-struct Field
+const unsigned row_number = 6;
+
+class Field
 {
+    typedef std::vector<Card> Deck;
     public:
-        Field();
+        Deck rows[row_number];
 
-        Side allied_forces;
-        Side enemy_forces;
+        CardPool pool;
 
-        Commander enemy_commander;
+        Deck hand;
 
-        Hand hand;
+        Commander enemy;
+        Commander ally;
 
-        // need special class pool
-        std::vector<std::shared_ptr<Card>> drop;
-        std::vector<std::shared_ptr<Card>> pool;
+        unsigned strength(unsigned row) const;
+        unsigned allyStrength() const;
+        unsigned enemyStrength() const;
 
-        //methods
-        bool from_hand_to_side(unsigned pos, int row);
-        void rand_from_pool();
 };
 
 

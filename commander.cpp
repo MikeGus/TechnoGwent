@@ -1,20 +1,23 @@
 #include "commander.h"
 
-Commander::Commander(const unsigned card_id) : Card(card_id)
+
+Commander::Commander(const unsigned id): _used(false) , _ability(id), _id(id) {}
+
+
+bool Commander::used() const
 {
-    if (this->role != Role::commander) {
-        throw std::logic_error("Wrong card type!");
-    }
+    return _used;
 }
 
 
-Ability Commander::get_ability() const
+unsigned Commander::id() const
 {
-    return ability;
+    return _id;
 }
 
 
-bool Commander::ability_used() const
+void Commander::use_ability(Field& field)
 {
-    return used;
+    _ability.execute(field);
+    _used = true;
 }
