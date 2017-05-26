@@ -6,7 +6,7 @@ CommandRecieve::CommandRecieve(GameWindow* window, Field* field, unsigned id, in
     reciever_field = field;
 }
 
-CommandRecieve::execute()
+void CommandRecieve::execute()
 {
     reciever_field->fromEnemyToRow(row, id);
 }
