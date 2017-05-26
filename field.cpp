@@ -1,8 +1,9 @@
 #include "field.h"
 
-Field::Field() : enemy_hand(10), ally_passed(false), enemy_passed(true), round(1)
+Field::Field(const unsigned mixKey, const unsigned commander_id, const unsigned enemy_commander_id) :
+     desk(mixKey), ally(commander_id), enemy(enemy_commander_id), enemy_hand(10), ally_passed(false), enemy_passed(false), round(1),
+     round_won(0), round_lost(0)
 {
-//    TODO: fill pool from db
     for (unsigned i = 0; i < 10; ++i) {
         fromPoolToHand();
     }
@@ -111,6 +112,57 @@ bool Field::correctPlacement(const Card& card, const int row) const
     return true;
 }
 
+void Field::pass()
+{
+    ally_passed = true;
+}
+
+
+bool Field::nextRound()
+{
+    if (ally_passed && enemy_passed) {
+        ally_passed = enemy_passed = false;
+        ++round;
+
+        if (roundWinner() > 0) {
+            ++round_won;
+        }
+        else if (roundWinner() < 0) {
+            ++round_lost;
+        }
+
+        desk.clear();
+
+        return true;
+    }
+    return false;
+}
+
+//return -1 if lost 1 if won 0 if even
+int Field::roundWinner()
+{
+    unsigned ally_str = allyStrength();
+    unsigned enemy_str = enemyStrength();
+
+    if (ally_str > enemy_str) {
+        return 1;
+    }
+    else if (ally_str < enemy_str) {
+        return -1;
+    }
+    return 0;
+}
+
+
+bool Field::finishGame()
+{
+    if (round == number_of_rounds && ally_passed && enemy_passed) {
+//        insert logic
+        return true;
+    }
+    return false;
+}
+
 
 bool Field::fromHandToRow(const int row, const unsigned hand_position)
 {
@@ -175,6 +227,11 @@ bool Field::fromEnemyToRow(const int row, const unsigned id)
 {
     Card card(id);
 
+    if (card.role() == Role::pass) {
+        enemy_passed = true;
+        return true;
+    }
+
 //    decrement number of enemy cards
     --enemy_hand;
 
@@ -216,3 +273,4 @@ bool Field::fromEnemyToRow(const int row, const unsigned id)
 
     return true;
 }
+
