@@ -17,7 +17,3 @@
 *.pro
 
 *.user
-
-main.cpp
-mainwindow.*
-*.ui
