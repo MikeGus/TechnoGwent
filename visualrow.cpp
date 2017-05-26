@@ -6,6 +6,9 @@ VisualRow::VisualRow(QWidget *parent, Row _row): VisualComponent(parent), rowTyp
 {
 }
 
+VisualRow::VisualRow(const VisualRow &other): VisualComponent(other)
+{
+}
 
 void VisualRow::draw()
 {

@@ -8,8 +8,8 @@ class VisualComponent : public QWidget
     Q_OBJECT
 
 public:
-    explicit VisualComponent(QWidget *parent = 0);
-    explicit VisualComponent(const VisualComponent &other) = default;// TODO: copy constructor for prototyping
+    explicit VisualComponent(QWidget *parent = nullptr);
+    explicit VisualComponent(const VisualComponent &other);
     virtual ~VisualComponent();
 
     virtual void draw();

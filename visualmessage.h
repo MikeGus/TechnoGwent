@@ -6,8 +6,8 @@
 class VisualMessage : public VisualComponent
 {
 public:
-    explicit VisualMessage(QWidget *parent = 0, QString _text = "", QColor _bgColor = Qt::gray, QColor _textColor = Qt::red);
-    explicit VisualMessage(const VisualMessage &other) = default;// TODO: copy constructor for prototyping
+    explicit VisualMessage(QWidget *parent = nullptr, QString _text = "", QColor _bgColor = Qt::gray, QColor _textColor = Qt::red);
+    explicit VisualMessage(const VisualMessage &other);
     ~VisualMessage() = default;
 
     void draw() override;

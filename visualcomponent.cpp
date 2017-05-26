@@ -7,6 +7,11 @@ VisualComponent::VisualComponent(QWidget *parent) : QWidget(parent),
 {
 }
 
+VisualComponent::VisualComponent(const VisualComponent &other): QWidget(other.parentWidget()),
+    buffer(new QPixmap(*other.buffer))
+{
+}
+
 VisualComponent::~VisualComponent()
 {
     delete buffer;
@@ -15,13 +20,12 @@ VisualComponent::~VisualComponent()
 void VisualComponent::draw()
 {
     buffer->fill(Qt::black);
-
 }
 
 void VisualComponent::show()
 {
-    QWidget::show();
     draw();
+    QWidget::show();
 }
 
 void VisualComponent::drawBuffer()

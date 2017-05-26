@@ -6,6 +6,10 @@ VisualMessage::VisualMessage(QWidget *parent, QString _text, QColor _bgColor, QC
 {
 }
 
+VisualMessage::VisualMessage(const VisualMessage &other): VisualComponent(other)
+{
+}
+
 void VisualMessage::draw()
 {
     buffer->fill(bgColor);
