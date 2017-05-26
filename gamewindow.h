@@ -1,7 +1,7 @@
 #ifndef GAMEWINDOW_H
 #define GAMEWINDOW_H
 
-#include "visualcomponent.h"
+#include "visual/visualcomponent.h"
 
 class GameWindow: public VisualComponent
 {

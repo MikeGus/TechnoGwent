@@ -1,7 +1,7 @@
 #include "testproxy.h"
 #include "server.h"
-#include "visualscenebuilder.h"
-#include "visualscenedesigner.h"
+#include "visual/visualscenebuilder.h"
+#include "visual/visualscenedesigner.h"
 
 TestProxy::TestProxy(): Proxy(new Server), win(nullptr)
 {

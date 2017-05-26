@@ -1,8 +1,8 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#include "gamewindow.h"
-#include "field.h"
+#include "../gamewindow.h"
+#include "../logic/field.h"
 
 class Command
 {

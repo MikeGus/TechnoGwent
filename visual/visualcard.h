@@ -3,7 +3,7 @@
 
 #include <memory>
 #include "visualcomponent.h"
-#include "card.h"
+#include "../logic/card.h"
 
 class VisualCard : public VisualComponent
 {

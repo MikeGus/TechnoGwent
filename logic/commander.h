@@ -2,7 +2,7 @@
 #define COMMANDER_H
 
 #include "card.h"
-#include "core/ability.h"
+#include "../core/ability.h"
 
 class Commander
 {
