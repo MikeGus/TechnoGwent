@@ -15,10 +15,6 @@ class Desk
         Deck ally_rows[row_number];
         Deck enemy_rows[row_number];
         CardPool pool;
-
-        void test() const {
-            std::cout << "test";
-        }
 };
 
 #endif // DESK_H

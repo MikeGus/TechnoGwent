@@ -9,7 +9,6 @@ void ability_0(Desk& desk)
 
 void ability_1(Desk& desk)
 {
-    desk.test();
     return;
 }
 
