@@ -3,10 +3,10 @@
 
 enum class Alliance
 {
-    none,
-    cops,
-    mafia,
-    jakuza
+    none = 0,
+    cops = 1,
+    mafia = 2,
+    jakuza = 3
 };
 
 #endif // ALLIANCE_H

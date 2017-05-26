@@ -1,44 +1,43 @@
 #ifndef CARD_H
 #define CARD_H
 
-
-#include "role.h"
-#include "row.h"
-#include "alliance.h"
-#include <utility>
-
-
+#include "core/alliance.h"
+#include "core/role.h"
+#include "core/row.h"
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
 
-
-#include <iostream>
-
 namespace pt = boost::property_tree;
-
 
 class Card
 {
     public:
-        Card() = default;
-        explicit Card(const unsigned card_id);
-        /*explicit*/ Card(const Card& other) = default; // Не думаю, что нам его нужно делать как explicit, на самом деле
-                                                        // Либо тогда добавлять move-семантику, чтобы из функций можно было
-                                                        // Возвращать копию
+//        conctructor w/ data from db
+        explicit Card() = default;
+        explicit Card(const unsigned id);
+        Card(const Card& other) = default;
+        Card(Card& other) = default;
+        Card& operator =(const Card& other);
         virtual ~Card() = default;
 
-        Card& operator=(const Card &other);
+        Alliance alliance() const;
+        Role role() const;
+        Row row() const;
+        unsigned id() const;
+        unsigned value() const;
+        bool golden() const;
+        bool rat() const;
 
-        Row get_row() const;
-        Role get_role() const;
-        Alliance get_alliance() const;
-        unsigned get_id() const;
+    private:
+        Alliance _alliance = Alliance::none;
+        Role _role = Role::pass;
+        Row _row = Row::any;
 
-    protected:
-        Row row;
-        Role role;
-        Alliance alliance;
-        unsigned id;
+        unsigned _id = 0;
+        unsigned _value = 0;
+
+        bool _golden = false;
+        bool _rat = false;
 };
 
 

@@ -3,11 +3,10 @@
 
 enum class Role
 {
-    pass,
-    modificator,
-    fighter,
-    maniac,
-    commander
+    pass = 0,
+    modificator = 1,
+    fighter = 2,
+    maniac = 3
 };
 
 #endif // ROLE_H

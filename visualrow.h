@@ -2,7 +2,7 @@
 #define VISUALROW_H
 
 #include "visualcomponent.h"
-#include "row.h"
+#include "core/row.h"
 
 class VisualRow : public VisualComponent
 {

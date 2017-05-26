@@ -1,30 +1,49 @@
 #ifndef FIELD_H
 #define FIELD_H
 
-#include "side.h"
-#include "hand.h"
-#include <ctime>
-#include <random>
+#include "commander.h"
+#include "desk.h"
 
-struct Field
+class Field
 {
+    typedef std::vector<Card> Deck;
     public:
         Field();
+        Field(const Field& other) = default;
+        Field(Field& other) = default;
 
-        Side allied_forces;
-        Side enemy_forces;
+        virtual ~Field() = default;
 
-        Commander enemy_commander;
 
-        Hand hand;
+//        data
+        Desk desk;
 
-        // need special class pool
-        std::vector<std::shared_ptr<Card>> drop;
-        std::vector<std::shared_ptr<Card>> pool;
+        Commander enemy;
+        Commander ally;
 
-        //methods
-        bool from_hand_to_side(unsigned pos, int row);
-        void rand_from_pool();
+        Deck hand;
+        unsigned enemy_hand = 10;
+
+        bool ally_passed = false;
+        bool enemy_passed = false;
+
+        unsigned round = 1;
+
+
+//        methods
+        unsigned strength(const int row) const;
+        unsigned allyStrength() const;
+        unsigned enemyStrength() const;
+
+//        TODO : command
+
+
+    private:
+        bool correctPlacement(const Card& card, const int row) const;
+        bool fromPoolToHand();
+        bool fromHandToRow(const int row, const unsigned hand_position);
+        bool fromEnemyToRow(const int row, const unsigned id);
+
 };
 
 
