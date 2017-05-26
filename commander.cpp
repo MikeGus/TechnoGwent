@@ -16,8 +16,8 @@ unsigned Commander::id() const
 }
 
 
-void Commander::use_ability(Field& field)
+void Commander::useAbility(Desk& desk)
 {
-    _ability.execute(field);
+    _ability.execute(desk);
     _used = true;
 }

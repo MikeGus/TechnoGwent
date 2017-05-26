@@ -11,7 +11,7 @@ class Ability
 
         virtual ~Ability() = default;
 
-        void execute(Field& field) const;
+        void execute(Desk& field) const;
 
     private:
         Ability_impl _realization;

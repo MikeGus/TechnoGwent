@@ -25,9 +25,9 @@ unsigned Field::strength(const int row) const
     bool zero_modificator = false;
 
 //    check every card in a row
-    const Deck* rows(ally_rows);
+    const Deck* rows(desk.ally_rows);
     if (row < 0) {
-        rows = enemy_rows;
+        rows = desk.enemy_rows;
     }
 
     for (const Card& card : rows[row]) {
@@ -129,15 +129,15 @@ bool Field::fromHandToRow(const int row, const unsigned hand_position)
 //    modificator placement
     if (card.row() == Row::any) {
         if (card.value() == 0) {
-            ally_rows[abs_row].push_back(card);
-            enemy_rows[abs_row].push_back(card);
+            desk.ally_rows[abs_row].push_back(card);
+            desk.enemy_rows[abs_row].push_back(card);
         }
         else {
             if (row > 0) {
-                ally_rows[abs_row].push_back(card);
+                desk.ally_rows[abs_row].push_back(card);
             }
             else {
-                enemy_rows[abs_row].push_back(card);
+                desk.enemy_rows[abs_row].push_back(card);
             }
         }
         return true;
@@ -145,10 +145,10 @@ bool Field::fromHandToRow(const int row, const unsigned hand_position)
 
 //    any other card
     if (row > 0) {
-        ally_rows[abs_row].push_back(card);
+        desk.ally_rows[abs_row].push_back(card);
     }
     else {
-        enemy_rows[abs_row].push_back(card);
+        desk.enemy_rows[abs_row].push_back(card);
     }
     hand.erase(hand.begin() + hand_position);
 
@@ -163,15 +163,15 @@ bool Field::fromHandToRow(const int row, const unsigned hand_position)
 
 bool Field::fromPoolToHand()
 {
-    if (pool.emptyAvailible()) {
+    if (desk.pool.emptyAvailible()) {
         return false;
     }
-    Card card(pool.getCard());
+    Card card(desk.pool.getCard());
     hand.push_back(card);
     return true;
 }
 
-bool Field::fromEnemyToRow(const unsigned id, const int row)
+bool Field::fromEnemyToRow(const int row, const unsigned id)
 {
     Card card(id);
 
@@ -187,15 +187,15 @@ bool Field::fromEnemyToRow(const unsigned id, const int row)
 //    modificator placement
     if (card.row() == Row::any) {
         if (card.value() == 0) {
-            ally_rows[abs_row].push_back(card);
-            enemy_rows[abs_row].push_back(card);
+            desk.ally_rows[abs_row].push_back(card);
+            desk.enemy_rows[abs_row].push_back(card);
         }
         else {
             if (row > 0) {
-                ally_rows[abs_row].push_back(card);
+                desk.ally_rows[abs_row].push_back(card);
             }
             else {
-                enemy_rows[abs_row].push_back(card);
+                desk.enemy_rows[abs_row].push_back(card);
             }
         }
         return true;
@@ -203,10 +203,10 @@ bool Field::fromEnemyToRow(const unsigned id, const int row)
 
 //    any other card
     if (row > 0) {
-        ally_rows[abs_row].push_back(card);
+        desk.ally_rows[abs_row].push_back(card);
     }
     else {
-        enemy_rows[abs_row].push_back(card);
+        desk.enemy_rows[abs_row].push_back(card);
     }
 
 //    take two cards if rat

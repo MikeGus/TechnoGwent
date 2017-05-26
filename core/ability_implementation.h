@@ -2,9 +2,7 @@
 #define ABILITY_IMPLEMENTATION_H
 
 #include <functional>
-
-class Field;
-
+#include "desk.h"
 
 class Ability_impl
 {
@@ -15,10 +13,10 @@ class Ability_impl
 
         virtual ~Ability_impl() = default;
 
-        void execute(const Field& field) const;
+        void execute(Desk& desk) const;
 
     private:
-        std::function<void(const Field&)> _function;
+        std::function<void(Desk&)> _function;
 
 };
 

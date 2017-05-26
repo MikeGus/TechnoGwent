@@ -4,12 +4,10 @@
 #include "card.h"
 #include "core/ability.h"
 
-
 class Commander
 {
     public:
-        explicit Commander() = default;
-        explicit Commander(const unsigned id);
+        explicit Commander(const unsigned id = 0);
 
         explicit Commander(const Commander& other) = default;
         virtual ~Commander() = default;
@@ -17,7 +15,7 @@ class Commander
         bool used() const;
         unsigned id() const;
 
-        void use_ability(Field& field);
+        void useAbility(Desk& desk);
 
     private:
         Ability _ability;

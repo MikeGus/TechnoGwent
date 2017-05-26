@@ -2,17 +2,18 @@
 
 // availible_commands
 
-void ability_0(const Field& field)
+void ability_0(Desk& desk)
 {
     return;
 }
 
-void ability_1(const Field& field)
+void ability_1(Desk& desk)
 {
+    desk.test();
     return;
 }
 
-void ability_2(const Field &field)
+void ability_2(Desk& desk)
 {
     return;
 }
@@ -20,7 +21,7 @@ void ability_2(const Field &field)
 
 Ability_impl::Ability_impl(const unsigned id)
 {
-    void (*func)(const Field&);
+    void (*func)(Desk&);
     switch (id) {
         case 0:
             func = ability_0;
@@ -37,11 +38,11 @@ Ability_impl::Ability_impl(const unsigned id)
             break;
     }
 
-    std::function<void (const Field&)> f(func);
+    std::function<void (Desk&)> f(func);
     this->_function = f;
 }
 
-void Ability_impl::execute(const Field& field) const
+void Ability_impl::execute(Desk& desk) const
 {
-    this->_function(field);
+    this->_function(desk);
 }

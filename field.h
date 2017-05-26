@@ -2,9 +2,7 @@
 #define FIELD_H
 
 #include "commander.h"
-#include "cardpool.h"
-
-const unsigned row_number = 3;
+#include "desk.h"
 
 class Field
 {
@@ -18,10 +16,7 @@ class Field
 
 
 //        data
-        Deck ally_rows[row_number];
-        Deck enemy_rows[row_number];
-
-        CardPool pool;
+        Desk desk;
 
         Commander enemy;
         Commander ally;
