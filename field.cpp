@@ -1,6 +1,6 @@
 #include "field.h"
 
-unsigned Field::strength(int row) const
+unsigned Field::strength(const int row) const
 {
     if ((static_cast<unsigned>(abs(row)) >= row_number) || (row == 0)) {
         throw(std::logic_error("Wrong row number!"));
@@ -71,38 +71,82 @@ unsigned Field::enemyStrength() const
     return str;
 }
 
-bool Field::fromHandToRow(unsigned hand_position, int row)
+bool Field::correctPlacement(const Card& card, const int row) const
 {
-//    incorrect row values
-    if ((row == 0) || (static_cast<unsigned>(abs(row)) >= (row_number))) {
+//    row number out of range
+    if ((row == 0) || (static_cast<unsigned>(abs(row)) >= row_number)) {
         return false;
     }
+
+//    incorrect row parameter
+    if (card.row() == Row::any) {
+        if ((card.role() != Role::modificator)) {
+            return false;
+        }
+        return true;
+    }
+
+//    incorrect line of fire
+    if (static_cast<int>(card.row()) != abs(row)) {
+        return false;
+    }
+
+//    incorrect rat placement
+    if (card.role() == Role::fighter) {
+        if ((card.rat() && (row > 0)) || (!card.rat() && (row < 0))) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+
+bool Field::fromHandToRow(const unsigned hand_position, const int row)
+{
 //    incorrect position in hand
     if (hand_position >= hand.size()) {
         return false;
     }
-
     Card card(hand.at(hand_position));
 
-//    incorrect placement of "rat"
-    if ((card.rat() && (row > 0)) || (!card.rat() && (row < 0))) {
+    if (!correctPlacement(card, row)) {
         return false;
     }
 
-//    incorrect row for this type
-    if (static_cast<int> (card.role()) != abs(row)) {
-        return false;
+    int abs_row = abs(row);
+
+//    modificator placement
+    if (card.row() == Row::any) {
+        if (card.value() == 0) {
+            ally_rows[abs_row].push_back(card);
+            enemy_rows[abs_row].push_back(card);
+        }
+        else {
+            if (row > 0) {
+                ally_rows[abs_row].push_back(card);
+            }
+            else {
+                enemy_rows[abs_row].push_back(card);
+            }
+        }
+        return true;
     }
 
-//    everything ok
+//    any other card
     if (row > 0) {
-        ally_rows[row].push_back(card);
+        ally_rows[abs_row].push_back(card);
     }
     else {
-        enemy_rows[row].push_back(card);
+        enemy_rows[abs_row].push_back(card);
     }
-
     hand.erase(hand.begin() + hand_position);
+
+//    take two cards if rat
+    if ((card.role() == Role::fighter) && card.rat()) {
+        fromPoolToHand();
+        fromPoolToHand();
+    }
 
     return true;
 }
@@ -117,13 +161,48 @@ bool Field::fromPoolToHand()
     return true;
 }
 
-bool Field::fromEnemyToRow(unsigned id, int row)
+bool Field::fromEnemyToRow(const unsigned id, const int row)
 {
     Card card(id);
-    if (row >= row_number || row == 0) {
+
+//    decrement number of enemy cards
+    --enemy_hand;
+
+    if (!correctPlacement(card, row)) {
         return false;
     }
-    if (static_cast<int>(card.role()) != abs(row)) {
-        return false;
+
+    const int abs_row = abs(row);
+
+//    modificator placement
+    if (card.row() == Row::any) {
+        if (card.value() == 0) {
+            ally_rows[abs_row].push_back(card);
+            enemy_rows[abs_row].push_back(card);
+        }
+        else {
+            if (row > 0) {
+                ally_rows[abs_row].push_back(card);
+            }
+            else {
+                enemy_rows[abs_row].push_back(card);
+            }
+        }
+        return true;
     }
+
+//    any other card
+    if (row > 0) {
+        ally_rows[abs_row].push_back(card);
+    }
+    else {
+        enemy_rows[abs_row].push_back(card);
+    }
+
+//    take two cards if rat
+    if ((card.role() == Role::fighter) && (card.rat())) {
+        enemy_hand += 2;
+    }
+
+    return true;
 }
