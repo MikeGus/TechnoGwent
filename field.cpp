@@ -1,5 +1,15 @@
 #include "field.h"
 
+Field::Field() : enemy_hand(10), ally_passed(false), enemy_passed(true), round(1)
+{
+//    TODO: fill pool from db
+    for (unsigned i = 0; i < 10; ++i) {
+        fromPoolToHand();
+    }
+}
+
+
+
 unsigned Field::strength(const int row) const
 {
     if ((static_cast<unsigned>(abs(row)) >= row_number) || (row == 0)) {
@@ -102,7 +112,7 @@ bool Field::correctPlacement(const Card& card, const int row) const
 }
 
 
-bool Field::fromHandToRow(const unsigned hand_position, const int row)
+bool Field::fromHandToRow(const int row, const unsigned hand_position)
 {
 //    incorrect position in hand
     if (hand_position >= hand.size()) {

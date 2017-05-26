@@ -10,7 +10,7 @@ class Field
 {
     typedef std::vector<Card> Deck;
     public:
-        Field() = default;
+        Field();
         Field(const Field& other) = default;
         Field(Field& other) = default;
 
@@ -29,19 +29,25 @@ class Field
         Deck hand;
         unsigned enemy_hand = 10;
 
+        bool ally_passed = false;
+        bool enemy_passed = false;
+
+        unsigned round = 1;
+
 
 //        methods
         unsigned strength(const int row) const;
         unsigned allyStrength() const;
         unsigned enemyStrength() const;
 
-        bool fromHandToRow(const unsigned hand_position, const int row);
-        bool fromPoolToHand();
+//        TODO : command
 
-        bool fromEnemyToRow(const unsigned id, const int row);
 
     private:
         bool correctPlacement(const Card& card, const int row) const;
+        bool fromPoolToHand();
+        bool fromHandToRow(const int row, const unsigned hand_position);
+        bool fromEnemyToRow(const int row, const unsigned id);
 
 };
 
