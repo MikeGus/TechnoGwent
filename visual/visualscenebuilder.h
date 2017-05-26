@@ -18,7 +18,7 @@ public:
                                         QColor bgColor = Qt::gray, QColor textColor = Qt::red);
     virtual VisualNullRow *buildNullRow(QWidget *parent = nullptr);
     virtual VisualCard *buildVisualCard(QWidget *parent = 0, const std::shared_ptr<Card> &card = std::shared_ptr<Card>(nullptr),
-                                        QString description = "Default descr", QString textureFile = nullptr);
+                                        QString description = "Default descr", QString textureFile = nullptr, bool bFaceUp = true);
     virtual VisualHand *buildVisualHand(QWidget *parent = nullptr);
     // TODO: VisualHand, MainCard, etc...
 

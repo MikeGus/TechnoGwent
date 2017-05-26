@@ -1,14 +1,19 @@
 #include <QPainter>
 #include "visualcard.h"
+#include "visual_cards_state/visualcardidlestate.h"
 
 VisualCard::VisualCard(QWidget *parent, const std::shared_ptr<Card> &_card,
-                       QString _description, QString textureFile): VisualComponent(parent),
-    info(new vcInfo(_card, _description, textureFile == "" ? nullptr : new QPixmap(textureFile)))
+                       QString _description, QString textureFile, bool _bFaceUp): VisualComponent(parent),
+    info(new vcInfo(_card, _description, textureFile == "" ? nullptr : new QPixmap(textureFile))),
+    curState(new VisualCardIdleState(info, buffer)), bFaceUp(_bFaceUp)
 {
+    setMouseTracking(true);
 }
 
-VisualCard::VisualCard(const VisualCard &other): VisualComponent(other)
+VisualCard::VisualCard(const VisualCard &other): VisualComponent(other), bFaceUp(other.bFaceUp)
 {
+    setMouseTracking(true);
+
     if(info)
         delete info;
 
@@ -19,6 +24,16 @@ VisualCard::~VisualCard()
 {
     if(info)
         delete info;
+}
+
+void VisualCard::setFaceUp(bool bUp)
+{
+    bFaceUp = bUp;
+}
+
+bool VisualCard::isFaceUp()
+{
+    return bFaceUp;
 }
 
 void VisualCard::draw()
@@ -32,9 +47,15 @@ void VisualCard::draw()
     p.drawRoundedRect(10, 10, width() - 20, height() - 20, 10, 10);
 
     p.setPen(Qt::darkGreen);
-    p.drawText(width()/4, height()/2, info->description);
+    if(bFaceUp)
+        p.drawText(width()/4, height()/2, info->description);
+    else
+        p.drawText(width()/4, height()/2, "Back side");
 
     p.end();
+
+    if(curState)
+        curState->draw();
 }
 
 void VisualCard::resizeEvent(QResizeEvent *re)

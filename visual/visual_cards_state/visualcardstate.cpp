@@ -1,5 +1,5 @@
 #include "visualcardstate.h"
 
-VisualCardState::VisualCardState(const vcInfo *_info)
+VisualCardState::VisualCardState(vcInfo *_info, QPixmap *_buffer): info(_info), buffer(_buffer)
 {
 }

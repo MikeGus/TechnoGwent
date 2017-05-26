@@ -4,6 +4,7 @@
 #include <QString>
 #include <QPixmap>
 #include <memory>
+#include "../logic/card.h"
 
 struct vcInfo
 {

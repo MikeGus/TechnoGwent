@@ -7,7 +7,7 @@
 class VisualCardState
 {
 public:
-    VisualCardState(const vcInfo *info);
+    VisualCardState(vcInfo *info, QPixmap *buffer);
     ~VisualCardState() = default;
 
     virtual void draw() = 0; // State-dependant draw
@@ -15,6 +15,7 @@ public:
 
 protected:
     vcInfo *info;
+    QPixmap *buffer;
 };
 
 #endif // VISUALCARDSTATE_H
