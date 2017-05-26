@@ -2,7 +2,6 @@
 #define ABILITY_H
 
 #include "ability_implementation.h"
-
 class Ability
 {
     public:
@@ -16,8 +15,5 @@ class Ability
     private:
         Ability_impl _realization;
 };
-
-
-
 
 #endif // ABILITY_H

@@ -2,7 +2,7 @@
 #define ABILITY_IMPLEMENTATION_H
 
 #include <functional>
-#include "desk.h"
+#include "../desk.h"
 
 class Ability_impl
 {
