@@ -6,11 +6,11 @@
 class VisualCardIdleState : public VisualCardState
 {
 public:
-    VisualCardIdleState(vcInfo *info, QPixmap *buffer);
+    VisualCardIdleState(VisualCard *card, vcInfo *info, QPixmap *buffer);
     ~VisualCardIdleState() = default;
 
-    void draw() override; // State-dependant draw
-    void mouseEvent(QMouseEvent *ev) override; // State-dependant mouse event
+    void mouseMoveEvent(QMouseEvent *ev) override; // State-dependant mouse events
+    void mousePressEvent(QMouseEvent *ev) override;
 };
 
 #endif // VIISUALCARDIDLESTATE_H

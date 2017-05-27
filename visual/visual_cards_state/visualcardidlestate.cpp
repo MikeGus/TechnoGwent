@@ -1,16 +1,24 @@
 #include "visualcardidlestate.h"
+#include "visualcardfloatingstate.h"
+#include "../visualcard.h"
 
-VisualCardIdleState::VisualCardIdleState(vcInfo *_info, QPixmap *_buffer): VisualCardState(_info, _buffer)
+VisualCardIdleState::VisualCardIdleState(VisualCard *card, vcInfo *_info, QPixmap *_buffer):
+    VisualCardState(card, _info, _buffer)
 {
 }
 
-void VisualCardIdleState::draw()
+void VisualCardIdleState::mouseMoveEvent(QMouseEvent *)
 {
-    // Nothing else to be drawn in idle state
-    // TODO: add hover highlight
+    // Don't do anything yet;
+    // TODO: maybe add hover reaction
 }
 
-void VisualCardIdleState::mouseEvent(QMouseEvent *)
+void VisualCardIdleState::mousePressEvent(QMouseEvent *ev)
 {
-    // TODO: have to handle state change: either highlight when hoverd or go to floating state
+    VisualCardFloatingState *floatingState = new VisualCardFloatingState(possessor, info, buffer);
+    floatingState->setShift(ev->x() - possessor->x(), ev->y() - possessor->y());
+
+    // Remove itself from layout
+
+    possessor->changeState(floatingState);
 }

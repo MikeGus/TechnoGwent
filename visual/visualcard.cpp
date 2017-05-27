@@ -5,19 +5,9 @@
 VisualCard::VisualCard(QWidget *parent, const std::shared_ptr<Card> &_card,
                        QString _description, QString textureFile, bool _bFaceUp): VisualComponent(parent),
     info(new vcInfo(_card, _description, textureFile == "" ? nullptr : new QPixmap(textureFile))),
-    curState(new VisualCardIdleState(info, buffer)), bFaceUp(_bFaceUp)
+    curState(new VisualCardIdleState(this, info, buffer)), bFaceUp(_bFaceUp)
 {
     setMouseTracking(true);
-}
-
-VisualCard::VisualCard(const VisualCard &other): VisualComponent(other), bFaceUp(other.bFaceUp)
-{
-    setMouseTracking(true);
-
-    if(info)
-        delete info;
-
-    info = new vcInfo(other.info->card, other.info->description, new QPixmap(*other.info->texture));
 }
 
 VisualCard::~VisualCard()
@@ -36,7 +26,21 @@ bool VisualCard::isFaceUp()
     return bFaceUp;
 }
 
+void VisualCard::changeState(VisualCardState *newState)
+{
+    if(curState)
+        delete curState;
+
+    curState = newState;
+}
+
 void VisualCard::draw()
+{
+    if(curState)
+        curState->draw();
+}
+
+void VisualCard::drawBasic()
 {
     QPainter p(buffer);
     p.setPen(Qt::green);
@@ -53,9 +57,6 @@ void VisualCard::draw()
         p.drawText(width()/4, height()/2, "Back side");
 
     p.end();
-
-    if(curState)
-        curState->draw();
 }
 
 void VisualCard::resizeEvent(QResizeEvent *re)
@@ -63,4 +64,22 @@ void VisualCard::resizeEvent(QResizeEvent *re)
     VisualComponent::resizeEvent(re);
 
     setFixedWidth(height()*.8);
+}
+
+void VisualCard::mousePressEvent(QMouseEvent *ev)
+{
+    if(curState)
+        curState->mousePressEvent(ev);
+}
+
+void VisualCard::mouseMoveEvent(QMouseEvent *ev)
+{
+    if(curState)
+        curState->mouseMoveEvent(ev);
+}
+
+void VisualCard::mouseReleaseEvent(QMouseEvent *ev)
+{
+    if(curState)
+        curState->mouseReleaseEvent(ev);
 }
