@@ -7,7 +7,7 @@ int main(int argc, char** argv)
         Server server;
         return app.exec();
     }
-    catch (std::runtime_error& err) {
-        std::cerr << err.what() << std::endl;
+    catch (std::exception& err) {
+        std::cerr << "Server works failed " << err.what() << std::endl;
     }
 }

@@ -1,9 +1,8 @@
 #include "client.h"
-#include "utils.hpp"
-using namespace std;
+#include "utils.h"
 
-Client::Client(int id, int cd, QObject* parent) :
-    QObject(parent), player_id(id), card(cd)
+Client::Client(int id, int cd, int ln, QObject* parent) :
+    QObject(parent), player_id(id), card(cd), line(ln)
 {
   connect(&client, SIGNAL(connected()),
       this, SLOT(startTransfer()));
@@ -26,51 +25,60 @@ int Client::get_card(){
     return card;
 }
 
+int Client::get_line(){
+    return line;
+}
+
 void Client::start()
 {
     QHostAddress addr(get_ip_addr());
     client.connectToHost(addr, get_port());
-    cout << "Connecting to " << get_ip_addr() << ":" << get_port() << "..." << endl;
+    std::cout << "Info: Connecting to " << get_ip_addr() << ":" << get_port() << "..." << std::endl;
 }
 
 void Client::startTransfer()
 {
-    cout << "Connected!" << endl;
+    std::cout << "Info: Connected!" << std::endl;
+    int_pair request = {player_id, {card, line}};
 
-    QPair<int, int> request = {player_id, card};
-
-    // Отправляем данные на сервер
+    // Send data to server
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out << (quint16)0;
     out << request;
     out.device()->seek(0);
     out << (quint16)(block.size() - sizeof(quint16));
-    client.write(block);
+    if (!client.write(block) == -1) {
+        //std::err << "Error: Could not send request to server" << std::endl;
+    }
 
-    cout << "Send to server: " << request.first << " " << request.second << endl;
+    std::cout << "Info: Send to server: " << request.first << " " << request.second.first << " " << request.second.second << std::endl;
 }
 
 void Client::readData()
 {
-    QPair<int, int> answer = {-2, -2};
-    // Получаем ответ от сервера
+    int_pair answer = {-2, {-2,-2}};
+    // Getting response from server
     QDataStream in(&client);
     blockSize = 0;
     if (blockSize == 0) {
-        if (client.bytesAvailable() < (int)sizeof(quint16))
-            return;
+        if (client.bytesAvailable() < (int)sizeof(quint16)) {
+            std::string message = "Wrong message size from server";
+            throw std::runtime_error(message);
+        }
         in >> blockSize;
     }
-    if (client.bytesAvailable() < blockSize)
-        return;
+    if (client.bytesAvailable() < blockSize) {
+        std::string message = "Wrong message from server";
+        throw std::runtime_error(message);
+    }
     in >> answer;
     player_id = answer.first;
-    card = answer.second;
-    cout << "Answer from server: " << answer.first << " " << answer.second << endl;
-
-    // Как только ответ от сервера получен выходим из приложения
-    //qApp->exit();
+    card = answer.second.first;
+    line = answer.second.second;
+    std::cout << "Info: Answer from server: " << answer.first << " " << answer.second.first << " " << answer.second.second << std::endl;
+    qApp->exit();
+    return;
 }
 
 // Обрабатываем возможные ошибки
@@ -78,18 +86,13 @@ void Client::displayErrorSlot(QAbstractSocket::SocketError socketError)
 {
     switch (socketError) {
         case QAbstractSocket::RemoteHostClosedError:
-            qApp->exit();
-            break;
+            throw std::runtime_error("Host closed");
         case QAbstractSocket::HostNotFoundError:
-            cout << "Error: Host not found" << endl;
-            qApp->exit();
-            break;
+            throw std::runtime_error("Host not found");
         case QAbstractSocket::ConnectionRefusedError:
-            cout << "Error: Connection refused" << endl;
-            qApp->exit();
-            break;
+            throw std::runtime_error("Connection Refused");
         default:
-            cout << "Error: " << client.errorString().toStdString() << endl;
+            std::cout << "Error: " << client.errorString().toStdString() << endl;
             qApp->exit();
             break;
     }
