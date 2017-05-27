@@ -8,14 +8,15 @@
 #include <random>
 #include <ctime>
 
-typedef QPair<int, int> int_pair;
+
+typedef QPair<int, QPair<int, int>> int_pair;
 
 struct session{
-    int_pair pair_id;
+    QPair<int, int> pair_id; // player1, player2
     bool whom_step_now; // someone, who play card now
-    int last_step; // card id
+    QPair<int, int>  last_step; // card id, row
 
-    session(const int_pair& pair, const bool sp = true, const int ls = -1);
+    session(const QPair<int, int>& pair, const bool sp = true, const QPair<int, int>& ls = {-1, -1});
     session();
 };
 
@@ -33,9 +34,9 @@ class Server: public QObject
 
   private:
     const int_pair response_manager(const int_pair&);
-    const int find_index(const int&);
+    const int find_index(const int&) const;
     const int_pair get_message();
-    bool send_response(const int_pair&);
+    bool send_response(const int_pair&) const;
 
     QTcpServer server;
     QTcpSocket* client;

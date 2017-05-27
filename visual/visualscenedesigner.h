@@ -2,7 +2,7 @@
 #define VISUALSCENEDESIGNER_H
 
 #include "visualscenebuilder.h"
-#include "gamewindow.h"
+#include "../gamewindow.h"
 
 class VisualSceneDesigner
 {

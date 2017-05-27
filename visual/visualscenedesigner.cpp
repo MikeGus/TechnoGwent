@@ -24,6 +24,16 @@ GameWindow *VisualSceneDesigner::getWindow(int width, int height)
     QVBoxLayout *ver = new QVBoxLayout;
 
 
+    VisualHand *opponentHand = builder->buildVisualHand();
+    ver->addWidget(opponentHand);
+    for(int i = 0; i < 8; i++)
+    {
+        VisualCard *vc = builder->buildVisualCard();
+        vc->setFaceUp(false);
+        std::shared_ptr<VisualCard> vcShared(vc);
+        opponentHand->insertCard(vcShared, i);
+    }
+
     for(int j = 0; j < 3; j++)
     {
         VisualRow *row = builder->buildRow();
@@ -67,9 +77,11 @@ GameWindow *VisualSceneDesigner::getWindow(int width, int height)
     hor->addWidget(battleFieldContainer);
     win->setLayout(hor);
 
-    VisualMessage *msg = new VisualMessage(win, "Some text");
-    msg->resize(win->width(), win->height()/6);
-    msg->move(0, win->height()/2 - win->height()/8);
+    // Really tired of this message
+    // TODO: fade-in/fade-out
+    //VisualMessage *msg = new VisualMessage(win, "Some text");
+    //msg->resize(win->width(), win->height()/6);
+    //msg->move(0, win->height()/2 - win->height()/8);
 
     return win;
 }

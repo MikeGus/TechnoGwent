@@ -17,9 +17,9 @@ VisualNullRow *VisualSceneBuilder::buildNullRow(QWidget *parent)
 }
 
 VisualCard *VisualSceneBuilder::buildVisualCard(QWidget *parent, const std::shared_ptr<Card> &card,
-                                                QString description, QString textureFile)
+                                                QString description, QString textureFile, bool bFaceUp)
 {
-    return new VisualCard(parent, card, description, textureFile);
+    return new VisualCard(parent, card, description, textureFile, bFaceUp);
 }
 
 VisualHand *VisualSceneBuilder::buildVisualHand(QWidget *parent)

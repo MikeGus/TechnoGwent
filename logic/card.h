@@ -1,9 +1,9 @@
 #ifndef CARD_H
 #define CARD_H
 
-#include "core/alliance.h"
-#include "core/role.h"
-#include "core/row.h"
+#include "../core/alliance.h"
+#include "../core/role.h"
+#include "../core/row.h"
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
 

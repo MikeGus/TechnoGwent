@@ -1,7 +1,8 @@
 #include "testproxy.h"
 #include "server.h"
-#include "visualscenebuilder.h"
-#include "visualscenedesigner.h"
+#include "visual/visualscenebuilder.h"
+#include "visual/visualscenedesigner.h"
+#include "gamewindowsingle.h"
 
 TestProxy::TestProxy(): Proxy(new Server), win(nullptr)
 {
@@ -21,6 +22,8 @@ void TestProxy::init(int windowWidth, int windowHeight)
     VisualSceneDesigner des(&build);
     win = des.getWindow(windowWidth, windowHeight);
     win->showFullScreen();
+
+    GameWindowSingle::gameWindow() = win;
 
     Proxy::init(windowWidth, windowHeight);
 }

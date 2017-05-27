@@ -11,15 +11,18 @@
 #include <QAbstractSocket>
 #include <string>
 
+typedef QPair<int, QPair<int,int>> int_pair;
+
 class Client: public QObject
 {
     Q_OBJECT
 public:
-    Client(int id, int cd, QObject* parent = 0);
+    Client(int id, int cd, int ln, QObject* parent = 0);
     ~Client();
     void start();
     int get_player_id();
     int get_card();
+    int get_line();
 
 public slots:
     void startTransfer();
@@ -33,4 +36,5 @@ private:
     quint16 blockSize;
     int player_id = -1;
     int card = -1;
+    int line = -1;
 };
