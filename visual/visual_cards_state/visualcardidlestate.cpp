@@ -1,3 +1,4 @@
+#include <QLayout>
 #include "visualcardidlestate.h"
 #include "visualcardfloatingstate.h"
 #include "../visualcard.h"
@@ -19,6 +20,7 @@ void VisualCardIdleState::mousePressEvent(QMouseEvent *ev)
     floatingState->setShift(ev->x() - possessor->x(), ev->y() - possessor->y());
 
     // Remove itself from layout
+    possessor->parentWidget()->layout()->removeWidget(possessor);
 
     possessor->changeState(floatingState);
 }
